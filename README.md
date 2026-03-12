@@ -116,7 +116,7 @@ The **best model was obtained at epoch 69**.
 
 # Training Loss Curve
 
-![Loss Curve](images/loss_curve.png)
+![Loss Curve](images/loss_curves.png)
 
 Generator loss decreases as the model learns to produce more realistic images.
 
