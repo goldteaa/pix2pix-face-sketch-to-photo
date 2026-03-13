@@ -1,183 +1,176 @@
 # Pix2Pix GAN – Face Sketch to Photo Synthesis
 
-This project implements a **Pix2Pix Conditional GAN** to translate **hand-drawn face sketches into realistic face photographs** using the **CUHK Face Sketch Database (CUFS)**.
+## Project Overview
 
-The goal is to learn a mapping between a sketch and its corresponding real photograph using **supervised image-to-image translation**.
+This project implements a **Pix2Pix Conditional Generative Adversarial Network (cGAN)** to translate **hand-drawn face sketches into realistic face photographs**.
 
----
+The model learns a mapping between sketches and corresponding real images using supervised image-to-image translation techniques.
 
-# Project Overview
-
-Sketch-to-photo synthesis is an important computer vision task with applications in:
-
-• Law enforcement  
-• Forensic investigations  
-• Criminal identification systems  
-
-In many cases, police sketches are available instead of real photographs. This project demonstrates how **deep learning can reconstruct a realistic face image from a sketch**.
-
-The model used in this project is **Pix2Pix**, a conditional Generative Adversarial Network (cGAN).
+Sketch-to-photo synthesis is an important computer vision task with applications in **law enforcement, forensic investigations, and criminal identification systems**.
 
 ---
 
-# Dataset
+## Objective
 
-Dataset used:
+The goal of this project is to train a deep learning model capable of reconstructing realistic face photographs from hand-drawn sketches.
 
-**CUHK Face Sketch Database (CUFS)**
-
-Characteristics:
-
-- 188 paired images
-- Each sketch corresponds to a real face photo
-- Frontal face images
-- Controlled lighting conditions
-
-Train / Validation split:
-80% training
-20% validation
-
-
-Image size:
-256 × 256 pixels
-
-
+By learning the relationship between sketch images and real photographs, the model demonstrates how **Generative Adversarial Networks (GANs)** can be used for image translation tasks.
 
 ---
 
-# Model Architecture
+## Dataset
 
-Pix2Pix consists of two neural networks trained together.
+The model was trained using the **CUHK Face Sketch Database (CUFS)**.
 
-## Generator
+Dataset characteristics:
+
+* 188 paired sketch–photo images
+* Each sketch corresponds to a real face photograph
+* Frontal face images
+* Controlled lighting conditions
+
+Data split:
+
+* 80% training
+* 20% validation
+
+Images were resized to **256 × 256 pixels** for training.
+
+---
+
+## Tools & Technologies
+
+* Python
+* TensorFlow
+* Keras
+* NumPy
+* Matplotlib
+* Generative Adversarial Networks (GANs)
+* Computer Vision
+
+---
+
+## Methodology
+
+The project implements the **Pix2Pix architecture**, which consists of two neural networks trained together.
+
+### Generator
 
 The generator converts a **sketch → photo**.
 
-Architecture:
+Architecture features:
 
-- U-Net encoder-decoder
-- Skip connections
-- Preserves low-level spatial details
+* U-Net encoder–decoder structure
+* Skip connections to preserve spatial information
+* Learns to generate realistic face images from sketches
 
-## Discriminator
+### Discriminator
 
-The discriminator determines whether an image is:
-Real photo
-or
-Generated photo
+The discriminator evaluates whether an image is:
 
+* a real photograph
+* or a generated image
 
-Architecture:
+Architecture features:
 
-- PatchGAN discriminator
-- Evaluates small image patches
-- Encourages realistic local textures
+* PatchGAN discriminator
+* Evaluates local image patches
+* Encourages realistic texture generation
 
----
+Training details:
 
-# Training Details
+* Optimizer: Adam
+* Learning rate: 0.0002
+* Beta1: 0.5
+* Training epochs: 100
 
-Framework:
-TensorFlow / Keras
+Loss functions used:
 
-Optimizer:
-Adam
-learning rate = 0.0002
-beta1 = 0.5
-
-Training epochs:
-100 epochs
-
-
-Loss functions:
-
-- Adversarial loss
-- L1 reconstruction loss
+* Adversarial loss
+* L1 reconstruction loss
 
 ---
 
-# Results
+## Results
 
-During training the model gradually improved the generated images.
+During training the model gradually improved the quality of generated images.
 
-Early epochs:
+Early training stages produced **blurry outputs with limited facial detail**, while later epochs generated more realistic face structures and improved hair and facial features.
 
-- blurry outputs
-- poor facial detail
-
-Later epochs:
-
-- clearer face structure
-- improved hair and facial features
-
-The **best model was obtained at epoch 69**.
+The **best-performing generator model was obtained at epoch 69**.
 
 ---
 
-# Training Loss Curve
+## Training Loss Curve
 
 ![Loss Curve](loss_curves.png)
 
-Generator loss decreases as the model learns to produce more realistic images.
+The generator loss decreases during training as the model learns to produce more realistic face images.
 
 ---
 
-# Example Generated Images
+## Example Generated Images
 
-### Best generated preview
+### Best Generated Image
 
 ![Best Preview](outputs_pix2pix/best_preview.png)
 
-### Training progression
+### Training Progression
 
-| Epoch 1 | Epoch 50 | Epoch 100 |
-|---|---|---|
+| Epoch 1                            | Epoch 50                           | Epoch 100                          |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | ![](outputs_pix2pix/epoch_001.png) | ![](outputs_pix2pix/epoch_050.png) | ![](outputs_pix2pix/epoch_100.png) |
 
+These examples illustrate how the generated faces improve during training.
+
 ---
 
-# Project Structure
-notebook/
+## Project Structure
+
+```id="pix2pix_structure"
+pix2pix-face-sketch-to-photo
+│
+├── notebook
+│   └── CUFS_Pix2Pix.ipynb
+│
+├── models
+│   ├── pix2pix_generator_best.keras
+│   └── pix2pix_generator_cufs.keras
+│
+├── outputs_pix2pix
+│   generated images during training
+│
+├── project_report.pdf
+└── README.md
+```
+
+---
+
+## How to Run
+
+1. Clone the repository
+
+```id="pix2pix_clone"
+git clone https://github.com/goldteaa/pix2pix-face-sketch-to-photo.git
+```
+
+2. Install dependencies
+
+```id="pix2pix_install"
+pip install tensorflow numpy matplotlib
+```
+
+3. Open the notebook and run the training process
+
+```
 CUFS_Pix2Pix.ipynb
-
-models/
-pix2pix_generator_best.keras
-pix2pix_generator_cufs.keras
-
-outputs_pix2pix/
-generated images during training
-
-project_report.pdf
-full written report
-
-
+```
 
 ---
 
-# Technologies Used
+## Future Improvements
 
-- Python
-- TensorFlow
-- Keras
-- NumPy
-- Matplotlib
-- Generative Adversarial Networks (GANs)
-- Computer Vision
-
----
-
-# Future Improvements
-
-Possible extensions for this project:
-
-- Train on larger datasets
-- Use CycleGAN for unpaired image translation
-- Improve resolution using StyleGAN
-- Add perceptual loss functions
-
----
-
-# Author
-
-A M  
-Master's Degree – Data Science & Business Analytics
+* Train the model on larger datasets
+* Improve image resolution with advanced GAN architectures
+* Experiment with CycleGAN for unpaired image translation
+* Add perceptual loss functions to improve visual quality
